@@ -1,0 +1,35 @@
+.carousel .thumb {
+  width: 8rem; /* 128px */
+  height: 3rem; /* 48px */
+}
+
+@media (min-width: 768px) {
+  .carousel .thumb {
+    width: 8rem; /* 128px */
+    height: 3rem; /* 48px */
+  }
+}
+
+@media (min-width: 1024px) {
+  .carousel .thumb {
+    width: 12rem; /* 192px */
+    height: 5rem; /* 80px */
+  }
+}
+.hero-section {
+  position: relative;
+}
+
+.blur {
+  filter: blur(3px);
+}
+
+.slide-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  z-index: 1;
+}

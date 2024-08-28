@@ -1,10 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 // ...
 import { baseApi } from "./api/baseApi";
-
+import navbarReducer from "./features/navbar/navbarSlice";
+import cartReducer from "./features/cartSlice/cartSlice";
+import productReducer from "./features/ProductSlice/ProductSLice";
 export const store = configureStore({
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
+    navbar: navbarReducer,
+    cart: cartReducer,
+    product: productReducer,
   },
 });
 

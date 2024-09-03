@@ -14,6 +14,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { BiAddToQueue } from "react-icons/bi";
 
 import { Input } from "@/components/ui/input";
 
@@ -33,6 +34,8 @@ const AddProduct = () => {
     data.stock = parseFloat(data.stock.toString());
     data.rating = parseFloat(data.rating.toString());
 
+    console.log(data);
+
     addProduct(data)
       .unwrap()
       .then(() => {
@@ -51,8 +54,8 @@ const AddProduct = () => {
       {" "}
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <button className="bg-primary mb-4 text-white py-2 px-6 rounded-md hover:bg-primary-dark transition duration-300">
-            Add New Product
+          <button className="bg-violet-900 mb-4 text-white py-2 px-6 rounded-md border border-dark hover:bg-violet-700 hover:text-dark transition duration-300 flex items-center space-x-2">
+            <BiAddToQueue /> <span>Add New Product</span>
           </button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
@@ -171,11 +174,11 @@ const AddProduct = () => {
               <Input
                 id="imageUrl"
                 placeholder="Enter image URL"
-                {...register("images", { required: "Image URL is required" })}
+                {...register("image", { required: "Image URL is required" })}
               />
-              {errors.images && (
+              {errors.image && (
                 <span className="text-red-500 text-sm block text-center">
-                  {errors.images.message}
+                  {errors.image.message}
                 </span>
               )}
             </div>

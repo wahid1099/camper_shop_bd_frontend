@@ -4,6 +4,7 @@ import { baseApi } from "./api/baseApi";
 import navbarReducer from "./features/navbar/navbarSlice";
 import cartReducer from "./features/cartSlice/cartSlice";
 import productReducer from "./features/ProductSlice/ProductSLice";
+import productApis from "./features/ProductSlice/ProductsApi";
 export const store = configureStore({
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
@@ -11,6 +12,8 @@ export const store = configureStore({
     cart: cartReducer,
     product: productReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(productApis.middleware),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

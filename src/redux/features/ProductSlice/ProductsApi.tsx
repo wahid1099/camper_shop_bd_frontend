@@ -38,7 +38,7 @@ const productApis = baseApi.injectEndpoints({
     addProduct: builder.mutation({
       query: (data) => {
         return {
-          url: "product/create-product",
+          url: "/product/create-Product",
           method: "POST",
           body: data,
         };

@@ -53,6 +53,7 @@ const productApis = baseApi.injectEndpoints({
           body: data,
         };
       },
+      invalidatesTags: ["product"],
     }),
 
     deleteProduct: builder.mutation({

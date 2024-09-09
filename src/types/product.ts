@@ -13,7 +13,7 @@ export type TProduct = {
 export type CategoryType = {
   id: string;
   category: string;
-  images: string;
+  image: string;
 };
 
 export type ProductListProps = {

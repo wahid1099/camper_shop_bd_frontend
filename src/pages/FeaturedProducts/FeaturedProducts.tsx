@@ -6,6 +6,7 @@ import "aos/dist/aos.css";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import ProductCard from "@/components/ProductCard/ProductCard";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const FeaturedProducts = () => {
   useEffect(() => {
@@ -28,6 +29,7 @@ const FeaturedProducts = () => {
           height: "100vh",
         }}
       >
+        <ClipLoader />
         <p className="mt-50 mb-50">Loading data...</p>
       </div>
     );

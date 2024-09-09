@@ -6,6 +6,7 @@ import CartPage from "@/pages/CartPage/Cartpage";
 import Notfound from "@/pages/NotFound/Notfound";
 import Main from "@/components/layout/Main";
 import { createBrowserRouter } from "react-router-dom";
+import ProductDetails from "@/pages/ProductDetails/ProductDetails";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,11 @@ const router = createBrowserRouter([
         path: "/products",
         element: <Products></Products>,
       },
+      {
+        path: "product-details/:id",
+        element: <ProductDetails></ProductDetails>,
+      },
+
       {
         path: "/product-management",
         element: <ProductManagement></ProductManagement>,

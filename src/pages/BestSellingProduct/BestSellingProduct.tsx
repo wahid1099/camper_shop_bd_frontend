@@ -2,7 +2,7 @@
 import productApis from "@/redux/features/ProductSlice/ProductsApi";
 import AOS from "aos";
 import "aos/dist/aos.css";
-
+import ClipLoader from "react-spinners/ClipLoader";
 import "./BestSelling.css";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -29,6 +29,7 @@ const BestSelling = () => {
           height: "100vh",
         }}
       >
+        <ClipLoader />
         <p className="mt-50 mb-50">Loading data...</p>
       </div>
     );

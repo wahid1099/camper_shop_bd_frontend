@@ -2,6 +2,7 @@ import { TProduct } from "@/types";
 import AddProductModal from "@/components/productManagement/AddProducts";
 import productApis from "@/redux/features/ProductSlice/ProductsApi";
 import ProductList from "@/components/productManagement/ProductList";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const ProductManagement = () => {
   const { data, isLoading, isError, error, refetch } =
@@ -11,7 +12,6 @@ const ProductManagement = () => {
     });
 
   const products: TProduct[] = data?.data ?? [];
-
   if (isLoading) {
     return (
       <div
@@ -22,6 +22,7 @@ const ProductManagement = () => {
           height: "100vh",
         }}
       >
+        <ClipLoader />
         <p className="mt-50 mb-50">Loading data...</p>
       </div>
     );

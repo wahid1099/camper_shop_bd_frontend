@@ -7,6 +7,7 @@ import "aos/dist/aos.css";
 import ProductCard from "@/components/ProductCard/ProductCard";
 import { TProduct } from "@/types";
 import { useLocation } from "react-router-dom";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const debounce = (func: (...args: any[]) => void, wait: number) => {
   let timeout: ReturnType<typeof setTimeout>;
@@ -156,7 +157,17 @@ const Products = () => {
           {isLoading ? (
             <div className="flex justify-center items-center h-64">
               <div className="spinner-border text-primary" role="status">
-                <span className="sr-only">Loading...</span>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100vh",
+                  }}
+                >
+                  <ClipLoader />
+                  <p className="mt-50 mb-50">Loading data...</p>
+                </div>
               </div>
             </div>
           ) : products.length === 0 ? (

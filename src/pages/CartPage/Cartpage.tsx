@@ -44,36 +44,44 @@ const CartPage = () => {
   const isPlaceOrderDisabled = () => {
     return cartItems.some((item) => item.stock === 0);
   };
-
   return (
-    <div className="container mx-auto mt-40">
-      <h1 className="text-2xl font-bold mb-6">
+    <div className="container mx-auto mt-40 px-4 py-8">
+      <h1 className="text-3xl font-bold mb-8">
         You have {cartItems.length} item(s) in your cart
       </h1>
+
       {cartItems.length === 0 ? (
-        <p>Your cart is empty.</p>
+        <p className="text-lg text-gray-600">Your cart is empty.</p>
       ) : (
-        <div className="flex flex-col md:flex-row">
+        <div className="flex flex-col md:flex-row gap-8">
+          {/* Cart Items Section */}
           <div className="md:w-3/4">
-            <ul className="space-y-4">
+            <ul className="space-y-6">
               {cartItems.map((item) => (
                 <li
                   key={item._id}
-                  className="flex flex-col md:flex-row items-center justify-between border p-4 rounded-lg"
+                  className="flex flex-col md:flex-row items-center justify-between p-6 border rounded-lg shadow-md"
                 >
-                  <div className="flex items-center mb-4 md:mb-0">
-                    <input type="checkbox" className="mr-2" />
+                  <div className="flex items-center mb-4 md:mb-0 w-full md:w-3/5">
+                    <input type="checkbox" className="mr-4" />
                     <img
                       src={item.image}
                       alt={item.name}
-                      className="w-20 h-20 object-cover rounded mr-4"
+                      className="w-24 h-24 object-cover rounded-lg mr-6"
                     />
                     <div>
-                      <h2 className="text-lg font-semibold">{item.name}</h2>
-                      <p className="text-sm text-gray-600">$ {item.price}</p>
+                      <h2 className="text-xl font-semibold">{item.name}</h2>
+                      <p className="text-md text-gray-500">
+                        Price: &#2547;{item.price}
+                      </p>
+                      <p className="text-md text-gray-500">
+                        Stock: {item.stock}
+                      </p>
                     </div>
                   </div>
-                  <div className="flex items-center mb-4 md:mb-0">
+
+                  {/* Quantity Adjustment */}
+                  <div className="flex items-center mb-4 md:mb-0 w-full md:w-1/5">
                     <button
                       onClick={() =>
                         handleQuantityChange(
@@ -83,11 +91,11 @@ const CartPage = () => {
                         )
                       }
                       disabled={item.quantity <= 1}
-                      className="px-2 py-1 border rounded mr-2"
+                      className="px-3 py-2 bg-gray-200 hover:bg-gray-300 rounded-md text-lg mr-2"
                     >
                       -
                     </button>
-                    <span className="px-2">{item.quantity}</span>
+                    <span className="px-4 text-lg">{item.quantity}</span>
                     <button
                       onClick={() =>
                         handleQuantityChange(
@@ -97,49 +105,53 @@ const CartPage = () => {
                         )
                       }
                       disabled={item.quantity >= item.stock}
-                      className="px-2 py-1 border rounded ml-2"
+                      className="px-3 py-2 bg-gray-200 hover:bg-gray-300 rounded-md text-lg ml-2"
                     >
                       +
                     </button>
                   </div>
-                  <p className="text-lg font-semibold md:mr-4">
-                    $ {item.price * item.quantity}
-                  </p>
-                  <button
-                    onClick={() => handleRemoveProduct(item._id!)}
-                    className="px-4 py-2 bg-red-500 text-white rounded"
-                  >
-                    Remove
-                  </button>
+
+                  {/* Item Total Price and Remove Button */}
+                  <div className="flex flex-col items-end w-full md:w-1/5">
+                    <p className="text-lg font-bold">
+                      &#2547;{item.price * item.quantity}
+                    </p>
+                    <button
+                      onClick={() => handleRemoveProduct(item._id!)}
+                      className="px-4 py-2 mt-2 bg-red-500 hover:bg-red-600 text-white rounded-lg"
+                    >
+                      Remove
+                    </button>
+                  </div>
                 </li>
               ))}
             </ul>
           </div>
-          <div className="md:w-1/4 md:ml-6 mt-6 md:mt-0">
-            <div className="p-4 border rounded-lg">
-              <h2 className="text-xl font-bold mb-4">Price Details</h2>
-              <div className="flex justify-between mb-2">
-                <span>Sub Total</span>
-                <h2 className="text-2xl font-semibold">
-                  ${calculateTotalPrice().toFixed(2)}
-                </h2>
-              </div>
 
-              <div className="flex justify-between font-bold text-lg">
-                <span>Total</span>
-                <span>
-                  <h2 className="text-2xl font-semibold">
-                    ${calculateTotalPrice().toFixed(2)}
-                  </h2>
+          {/* Price Summary Section */}
+          <div className="md:w-1/4">
+            <div className="p-6 border rounded-lg shadow-md">
+              <h2 className="text-2xl font-bold mb-6">Price Details</h2>
+
+              <div className="flex justify-between mb-4">
+                <span className="text-lg">Sub Total</span>
+                <span className="text-2xl font-semibold">
+                  &#2547;{calculateTotalPrice().toFixed(2)}
                 </span>
               </div>
+
+              <div className="flex justify-between font-bold text-xl mb-4">
+                <span>Total</span>
+                <span>&#2547;{calculateTotalPrice().toFixed(2)}</span>
+              </div>
+
               <Link to="/order-complete">
                 <button
                   disabled={isPlaceOrderDisabled()}
-                  className={`mt-4 w-full px-6 py-3 rounded ${
+                  className={`mt-4 w-full px-6 py-3 rounded-lg ${
                     isPlaceOrderDisabled()
-                      ? "bg-gray-400"
-                      : "bg-green-500 text-white"
+                      ? "bg-sky-400		 cursor-not-allowed"
+                      : "bg-red-800			 hover:bg-red-600 text-white"
                   }`}
                 >
                   Place Order
@@ -149,7 +161,7 @@ const CartPage = () => {
               <Link to="/products">
                 <button
                   onClick={() => alert("Continue Shopping")}
-                  className="mt-2 w-full px-6 py-3 rounded bg-black text-white"
+                  className="mt-4 w-full px-6 py-3 rounded-lg bg-black text-white hover:bg-gray-800"
                 >
                   Continue Shopping
                 </button>

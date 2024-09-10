@@ -14,6 +14,7 @@ const FeaturedProducts = () => {
       duration: 1000,
     });
   }, []);
+
   const { data, error, isLoading } = productApis.useGetProductsQuery({
     search: "",
     sortBy: "",
@@ -30,18 +31,20 @@ const FeaturedProducts = () => {
         }}
       >
         <ClipLoader />
-        <p className="mt-50 mb-50">Loading data...</p>
+        <p>Loading data...</p>
       </div>
     );
   }
+
   if (error) {
     return <div>Error: {error.toString()}</div>;
   }
 
-  const features = data?.data?.slice(0, 4);
+  const features = data?.data?.slice(0, 6);
+
   return (
-    <div>
-      <div className="best-selling-products " data-aos="zoom-in">
+    <div className="w-full px-4 py-8">
+      <div className="best-selling-products" data-aos="zoom-in">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-3xl md:text-4xl font-bold">Featured Products</h2>
           <Link
@@ -53,11 +56,14 @@ const FeaturedProducts = () => {
           </Link>
         </div>
 
-        <div className="products-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {features &&
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {features && features.length > 0 ? (
             features.map((product: any, index: any) => (
               <ProductCard {...product} key={index}></ProductCard>
-            ))}
+            ))
+          ) : (
+            <p>No products available</p>
+          )}
         </div>
       </div>
     </div>

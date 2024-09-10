@@ -7,6 +7,8 @@ import Notfound from "@/pages/NotFound/Notfound";
 import Main from "@/components/layout/Main";
 import { createBrowserRouter } from "react-router-dom";
 import ProductDetails from "@/pages/ProductDetails/ProductDetails";
+import Checkout from "@/pages/CheckoutPage/Checkout";
+import SuccessPage from "@/pages/CheckoutPage/SucccessPage";
 
 const router = createBrowserRouter([
   {
@@ -40,8 +42,16 @@ const router = createBrowserRouter([
         element: <CartPage></CartPage>,
       },
       {
+        path: "order-complete",
+        element: <Checkout></Checkout>,
+      },
+      {
         path: "*",
         element: <Notfound></Notfound>,
+      },
+      {
+        path: "success",
+        element: <SuccessPage></SuccessPage>,
       },
     ],
   },

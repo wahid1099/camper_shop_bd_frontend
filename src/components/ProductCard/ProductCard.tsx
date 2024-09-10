@@ -54,11 +54,11 @@ const ProductCard = ({ image, name, price, rating, _id, delay }: TProduct) => {
         <div className="flex justify-between items-center">
           <Link
             to={`/product-details/${_id}`}
-            className="bg-primary text-white px-4 py-2 rounded-lg transition duration-300 hover:bg-primary-dark"
+            className="bg-emerald-600	 text-white px-4 py-2 rounded-lg transition duration-300 hover:bg-emerald-800	"
           >
             Show Details
           </Link>
-          <button
+          {/* <button
             className="flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-sm font-medium text-white hover:bg-gray-700 transition duration-300"
             aria-label="Add to cart"
           >
@@ -77,7 +77,7 @@ const ProductCard = ({ image, name, price, rating, _id, delay }: TProduct) => {
               />
             </svg>
             Add to Cart
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

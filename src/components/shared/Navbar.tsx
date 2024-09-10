@@ -4,7 +4,8 @@ import logo from "../../assets/logo.jpg";
 import { HiMenu, HiSearch } from "react-icons/hi";
 import { BsCartCheck } from "react-icons/bs";
 import { CiHeart, CiShoppingCart } from "react-icons/ci";
-
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import { useEffect } from "react";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -12,6 +13,8 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+  const { totalQuantity } = useAppSelector((state) => state.cart);
+  const dispatch = useAppDispatch();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50  shadow-md">
@@ -56,6 +59,11 @@ const Navbar = () => {
               className="text-body text-2xl flex items-center"
             >
               <CiShoppingCart />
+              {totalQuantity > 0 && (
+                <div className="ml-2 bg-red-500 text-white w-4 h-4 text-xs rounded-full flex items-center justify-center -top-2 -right-2 absolute">
+                  {totalQuantity}
+                </div>
+              )}
             </Link>
           </div>
           <Link
@@ -99,6 +107,11 @@ const Navbar = () => {
               className="text-body text-2xl w-full text-left flex items-center"
             >
               <BsCartCheck />
+              {totalQuantity > 0 && (
+                <div className="ml-2 bg-red-500 text-white w-4 h-4 text-xs rounded-full flex items-center justify-center -top-2 -right-2 absolute">
+                  {totalQuantity}
+                </div>
+              )}
             </Link>
           </div>
         </div>

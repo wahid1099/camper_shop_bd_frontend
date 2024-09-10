@@ -1,5 +1,4 @@
 import { useState } from "react";
-import AOS from "aos";
 import "aos/dist/aos.css";
 const FeaturedTourGroups = () => {
   const [tourGroups] = useState([

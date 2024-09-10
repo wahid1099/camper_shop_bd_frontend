@@ -4,8 +4,8 @@ import logo from "../../assets/logo.jpg";
 import { HiMenu, HiSearch } from "react-icons/hi";
 import { BsCartCheck } from "react-icons/bs";
 import { CiHeart, CiShoppingCart } from "react-icons/ci";
-import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { useEffect } from "react";
+import { useAppSelector } from "@/redux/hook";
+// import { useEffect } from "react";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -14,7 +14,7 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
   const { totalQuantity } = useAppSelector((state) => state.cart);
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50  shadow-md">

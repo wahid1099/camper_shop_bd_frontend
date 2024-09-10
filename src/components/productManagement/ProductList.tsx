@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   useReactTable,
   getCoreRowModel,
@@ -12,24 +12,25 @@ import { BiEdit, BiTrash } from "react-icons/bi";
 import Swal from "sweetalert2";
 import productApis from "@/redux/features/ProductSlice/ProductsApi";
 import UpdateProduct from "./UpdateProduct";
+import { TProduct } from "@/types";
 
-interface Product {
-  _id: string;
-  image: string;
-  name: string;
-  price: number;
-  category: string;
-  stock: number;
-  description: string;
+// interface Product {
+//   _id?: string;
+//   name: string;
+//   price: number;
+//   category: string;
+//   description: string;
+//   stock: number;
+//   rating: number;
+//   image?: string;
+//   delay: string;
+// }
 
-  [key: string]: any;
-}
-
-const ProductList = ({ products }: ProductListProps) => {
+const ProductList = ({ product }: ProductListProps) => {
   const [deleteProductMutation] = productApis.useDeleteProductMutation();
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<TProduct | null>(null);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
-  const [productData, setProductData] = useState<Product[]>(products);
+  //const [productData, setProductData] = useState<Product[]>(products);
 
   // useEffect(() => {
   //   if (isUpdateModalOpen === false && selectedProduct) {
@@ -42,7 +43,7 @@ const ProductList = ({ products }: ProductListProps) => {
       {
         header: "Image",
         accessorKey: "image",
-        cell: ({ row }: CellContext<Product, unknown>) => (
+        cell: ({ row }: CellContext<TProduct, unknown>) => (
           <img
             src={row.original.image}
             alt={row.original.name}
@@ -53,35 +54,35 @@ const ProductList = ({ products }: ProductListProps) => {
       {
         header: "Name",
         accessorKey: "name",
-        cell: ({ getValue }: CellContext<Product, string>) => (
+        cell: ({ getValue }: CellContext<TProduct, string>) => (
           <div className="p-2">{getValue()}</div>
         ),
       },
       {
         header: "Price",
         accessorKey: "price",
-        cell: ({ getValue }: CellContext<Product, number>) => (
+        cell: ({ getValue }: CellContext<TProduct, number>) => (
           <div className="p-2">{getValue()} TK</div>
         ),
       },
       {
         header: "Category",
         accessorKey: "category",
-        cell: ({ getValue }: CellContext<Product, string>) => (
+        cell: ({ getValue }: CellContext<TProduct, string>) => (
           <div className="p-2">{getValue()}</div>
         ),
       },
       {
         header: "Stock",
         accessorKey: "stock",
-        cell: ({ getValue }: CellContext<Product, number>) => (
+        cell: ({ getValue }: CellContext<TProduct, number>) => (
           <div className="p-2">{getValue()}</div>
         ),
       },
       {
         header: "Actions",
         accessorKey: "actions",
-        cell: ({ row }: CellContext<Product, unknown>) => (
+        cell: ({ row }: CellContext<TProduct, unknown>) => (
           <div className="flex space-x-2 p-2">
             <button
               className="text-blue-500 hover:text-blue-700"
@@ -105,7 +106,19 @@ const ProductList = ({ products }: ProductListProps) => {
     []
   );
 
-  const handleDelete = async (product: Product) => {
+  const handleDelete = async (product: TProduct) => {
+    const productId = product._id;
+
+    if (typeof productId !== "string") {
+      console.error("Product ID is invalid");
+      Swal.fire({
+        title: "Error",
+        text: "Invalid product ID.",
+        icon: "error",
+      });
+      return;
+    }
+    // Show confirmation alert
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -116,18 +129,27 @@ const ProductList = ({ products }: ProductListProps) => {
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await deleteProductMutation(product._id);
-        Swal.fire({
-          title: "Deleted!",
-          text: "Your product has been deleted.",
-          icon: "success",
-        });
+        try {
+          await deleteProductMutation(productId);
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your product has been deleted.",
+            icon: "success",
+          });
+        } catch (error) {
+          console.error("Error deleting product:", error);
+          Swal.fire({
+            title: "Error!",
+            text: "There was a problem deleting the product.",
+            icon: "error",
+          });
+        }
       }
     });
   };
 
   const table = useReactTable({
-    data: products,
+    data: product,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -213,30 +235,30 @@ const ProductList = ({ products }: ProductListProps) => {
 };
 
 // Component to truncate and expand text
-const TruncatedText = ({
-  text,
-  maxLength,
-}: {
-  text: string;
-  maxLength: number;
-}) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+// const TruncatedText = ({
+//   text,
+//   maxLength,
+// }: {
+//   text: string;
+//   maxLength: number;
+// }) => {
+//   const [isExpanded, setIsExpanded] = useState(false);
 
-  if (text.length <= maxLength) {
-    return <div className="p-2 border">{text}</div>;
-  }
+//   if (text.length <= maxLength) {
+//     return <div className="p-2 border">{text}</div>;
+//   }
 
-  return (
-    <div className="p-2 border">
-      {isExpanded ? text : `${text.substring(0, maxLength)}...`}
-      <button
-        className="ml-2 text-blue-500 hover:text-blue-700 text-sm"
-        onClick={() => setIsExpanded(!isExpanded)}
-      >
-        {isExpanded ? "Show Less" : "Show More"}
-      </button>
-    </div>
-  );
-};
+//   return (
+//     <div className="p-2 border">
+//       {isExpanded ? text : `${text.substring(0, maxLength)}...`}
+//       <button
+//         className="ml-2 text-blue-500 hover:text-blue-700 text-sm"
+//         onClick={() => setIsExpanded(!isExpanded)}
+//       >
+//         {isExpanded ? "Show Less" : "Show More"}
+//       </button>
+//     </div>
+//   );
+// };
 
 export default ProductList;

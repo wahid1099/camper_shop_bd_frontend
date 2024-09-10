@@ -1,5 +1,4 @@
 // src/pages/AboutUs/AboutUs.jsx
-import React from "react";
 import teamImage1 from "../../assets/about/aboutimg1.png"; // Adjust the path to your image
 import teamImage2 from "../../assets/about/aboutimg2.png"; // Adjust the path to your image
 import teamImage3 from "../../assets/about/wahid.png"; // Adjust the path to your image

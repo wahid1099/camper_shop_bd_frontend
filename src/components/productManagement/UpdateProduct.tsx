@@ -14,7 +14,6 @@ import { useForm } from "react-hook-form";
 import { TProduct } from "@/types";
 import { toast } from "sonner";
 import productApis from "@/redux/features/ProductSlice/ProductsApi";
-import { FiEdit } from "react-icons/fi";
 
 interface UpdateProductProps {
   product: TProduct;

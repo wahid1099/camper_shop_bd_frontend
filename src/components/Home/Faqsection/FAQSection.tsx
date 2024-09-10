@@ -1,8 +1,7 @@
 import { useState } from "react";
-import AOS from "aos";
 import "aos/dist/aos.css";
 const FAQSection = () => {
-  const [activeIndex, setActiveIndex] = useState(null);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const faqs = [
     {
@@ -32,12 +31,8 @@ const FAQSection = () => {
     },
   ];
 
-  const toggleAccordion = (index) => {
-    if (activeIndex === index) {
-      setActiveIndex(null);
-    } else {
-      setActiveIndex(index);
-    }
+  const toggleAccordion = (index: number) => {
+    setActiveIndex(activeIndex === index ? null : index);
   };
 
   return (

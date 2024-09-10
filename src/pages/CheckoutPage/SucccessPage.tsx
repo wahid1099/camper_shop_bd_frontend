@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import Lottie from "react-lottie-player";
-import LottieLight from "react-lottie-player/dist/LottiePlayerLight.modern"; // Make sure you have a JSON Lottie file
+// import LottieLight from "react-lottie-player/dist/LottiePlayerLight.modern"; // Make sure you have a JSON Lottie file
 import lottieJson from "./26514-check-success-animation.json";
-import { BsForwardFill } from "react-icons/bs";
+// import { BsForwardFill } from "react-icons/bs";
 
 const SuccessPage = () => {
   return (

@@ -5,11 +5,10 @@ import ProductList from "@/components/productManagement/ProductList";
 import ClipLoader from "react-spinners/ClipLoader";
 
 const ProductManagement = () => {
-  const { data, isLoading, isError, error, refetch } =
-    productApis.useGetProductsQuery({
-      search: "",
-      sortBy: "",
-    });
+  const { data, isLoading, isError } = productApis.useGetProductsQuery({
+    search: "",
+    sortBy: "",
+  });
 
   const products: TProduct[] = data?.data ?? [];
   if (isLoading) {
@@ -38,17 +37,17 @@ const ProductManagement = () => {
           height: "100vh",
         }}
       >
-        <p className="mt-50 mb-50">Error loading data: {error.message}</p>
+        <p className="mt-50 mb-50">Error loading data</p>
       </div>
     );
   }
 
   return (
     <div className="container mx-auto px-4 py-4 mt-20">
-      <AddProductModal refetch={refetch} />
+      <AddProductModal />
       <div>
         <div className="w-full rounded-xl mb-20">
-          <ProductList products={products} />
+          <ProductList product={products} />
         </div>
       </div>
     </div>
